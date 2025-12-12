@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenList - Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- REGISTRATION SCREEN -->
+        <div class="screen register-screen" id="registerScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+            
+            <div class="register-container">
+                <div class="pink-blob"></div>
+                
+                <div class="register-content">
+                    <h2 class="register-title">Your Productivity Starts Here</h2>
+                    <p class="register-subtitle">Let's assist you in achieving your tasks.</p>
+                    
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter your full name" id="registerName">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your email" id="registerEmail">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" placeholder="Enter your password" id="registerPassword">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" placeholder="Confirm password" id="registerConfirmPassword">
+                    </div>
+                    
+                    <button class="register-btn" onclick="handleRegister()">Get registered</button>
+                    
+                    <div class="signin-link">
+                        Already have an account? <a href="#" onclick="showLogin(event)">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGIN SCREEN -->
+        <div class="screen hidden-right" id="loginScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+            
+            <div class="login-container">
+                <div class="pink-blob"></div>
+                
+                <div class="content">
+                    <h1>Welcome to ZenList!</h1>
+                    
+                    <div class="illustration">🧘‍♂️</div>
+                    
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your Email" id="email">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" placeholder="Confirm password" id="password">
+                    </div>
+                    
+                    <div class="forgot-password">
+                        <a href="#" onclick="event.preventDefault()">Forget Password</a>
+                    </div>
+                    
+                    <button class="login-btn" onclick="handleLogin()">Login now</button>
+                    
+                    <div class="signup-link">
+                        Don't have an account? <a href="#" onclick="showRegister(event)">Sign up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WELCOME SCREEN -->
+        <div class="screen welcome-screen hidden-right" id="welcomeScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <div class="pink-blob"></div>
+                <div class="calendar-icon" onclick="openCalendarFromWelcome()">📅</div>
+                <div class="notification-icon" onclick="showNotificationPage()">🔔</div>
+                <div class="profile-placeholder">👤</div>
+                <div class="welcome-text">Welcome To ZenList!</div>
+            </div>
+
+            <div class="welcome-content">
+                <div class="quote-card" id="quoteCard">
+                    <button class="close-btn" onclick="closeQuote()">×</button>
+                    <div class="quote-text">"Loading today's quote..."</div>
+                    <div class="quote-author"></div>
+                </div>
+
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <p>No tasks yet. Click the + button to add your first task!</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="fab fab-edit" onclick="handleCreateNote()" title="Create Note">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                    </svg>
+                </button>
+                <button class="fab fab-add" onclick="handleAddWelcome()" title="Add Task">+</button>
+                <button class="fab fab-notes" onclick="showNotesList()" title="My Notes">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3z"></path>
+                        <path d="M15 3v6h6"></path>
+                    </svg>
+                </button>
+                <button class="fab fab-tasks" onclick="showTaskList()" title="My Tasks">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- NOTIFICATION PAGE -->
+        <div class="screen notification-page hidden-right" id="notificationPage">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="notification-header">
+                <button class="notification-back-btn" onclick="backToWelcome()">←</button>
+                <h1>Notification</h1>
+            </div>
+
+            <div class="notification-content">
+                <div class="notification-bell">
+                    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Bell body -->
+                        <path d="M50,25 C37,25 30,30 30,40 L30,60 C30,70 25,75 15,80 L85,80 C75,75 70,70 70,60 L70,40 C70,30 63,25 50,25 Z" 
+                              fill="#999" stroke="#888" stroke-width="2"/>
+                        <!-- Bell top knob -->
+                        <circle cx="50" cy="22" r="6" fill="#999" stroke="#888" stroke-width="2"/>
+                        <!-- Bell bottom rim -->
+                        <ellipse cx="50" cy="80" rx="35" ry="6" fill="#888"/>
+                        <!-- Bell clapper -->
+                        <ellipse cx="50" cy="88" rx="10" ry="14" fill="#777"/>
+                    </svg>
+                </div>
+                <p class="notification-empty-text">Nothing Here!</p>
+            </div>
+        </div>
+
+        <!-- CREATE NOTE SCREEN -->
+        <div class="screen create-note-screen hidden-right" id="createNoteScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="note-header">
+                <div class="note-header-blob"></div>
+                <div class="note-bell-icon" onclick="showNotificationPage()">🔔</div>
+                <h2 class="note-title-header">Create a Note</h2>
+            </div>
+
+            <div class="note-content">
+                <div class="note-form-section">
+                    <label class="note-label">Title</label>
+                    <input type="text" class="note-input" id="noteTitle" placeholder="Enter note title">
+                </div>
+
+                <div class="note-description-section">
+                    <label class="note-label">Description</label>
+                    <textarea class="note-input note-textarea" id="noteDescription" placeholder="Write your thoughts..."></textarea>
+                </div>
+
+                <div class="mood-section">
+                    <div class="mood-question">How are you today?</div>
+                    <div class="mood-options">
+                        <span class="mood-emoji" data-mood="happy" onclick="selectMood('happy', this)">😊</span>
+                        <span class="mood-emoji" data-mood="tired" onclick="selectMood('tired', this)">😴</span>
+                        <span class="mood-emoji" data-mood="angry" onclick="selectMood('angry', this)">😠</span>
+                        <span class="mood-emoji" data-mood="smirk" onclick="selectMood('smirk', this)">😏</span>
+                    </div>
+                </div>
+
+                <div class="note-actions">
+                    <button class="note-btn note-save-btn" onclick="handleSaveNote()">Save</button>
+                    <button class="note-btn note-discard-btn" onclick="handleDiscardNote()">Discard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTES LIST SCREEN -->
+        <div class="screen notes-list-screen hidden-right" id="notesListScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                    <span>🔔</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <button class="back-arrow" onclick="backToWelcome()">←</button>
+                <div class="pink-blob"></div>
+                <div class="notification-icon" onclick="showNotificationPage()">🔔</div>
+                <div class="profile-placeholder">👤</div>
+                <div class="welcome-text">Welcome To ZenList!</div>
+            </div>
+
+            <div class="notes-list-content">
+                <h2 class="notes-header-title">My Notes</h2>
+
+                <div id="notesList" class="notes-container">
+                    <div class="empty-notes">
+                        <div class="empty-notes-icon">📝</div>
+                        <div>No notes yet.<br>Click the + button to create your first note!</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="fab-add-note" onclick="handleAddNoteFromList()">+</button>
+        </div>
+
+        <!-- CREATE TASK SCREEN -->
+        <div class="screen create-task-screen hidden-right" id="createTaskScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <button class="back-arrow" onclick="backFromCreateTask()">←</button>
+                <div class="pink-blob"></div>
+                <div class="notification-icon" onclick="showNotificationPage()">🔔</div>
+                <div class="profile-placeholder">👤</div>
+                <div class="welcome-text">Welcome To ZenList!</div>
+            </div>
+
+            <div class="greeting">Good Afternoon</div>
+
+            <div class="task-section">
+                <div class="task-header">
+                    <div class="task-title-label">Tasks</div>
+                    <div style="cursor: pointer;" onclick="openCalendar()">📅</div>
+                </div>
+
+                <div class="task-form">
+                    <div class="form-group">
+                        <label class="form-label">Task Title</label>
+                        <input type="text" class="form-input" id="taskTitle" placeholder="Enter task title">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input form-textarea" id="taskDescription" placeholder="Enter task description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-input" id="taskDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-input" id="taskPriority">
+                            <option value="">Select priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="save-btn" onclick="handleSaveTask()">SAVE</button>
+            </div>
+        </div>
+
+        <!-- CALENDAR SCREEN -->
+        <div class="screen calendar-screen hidden-right" id="calendarScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                    <span>🔔</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <button class="calendar-close-btn" onclick="closeCalendar()">←</button>
+                <div class="pink-blob"></div>
+                <div class="profile-placeholder">👤</div>
+                <div class="welcome-text">Calendar View</div>
+            </div>
+
+            <div class="calendar-content">
+                <h2 class="calendar-header-title">My Calendar</h2>
+
+                <div class="calendar-month-nav">
+                    <button class="calendar-nav-btn" onclick="changeMonth(-1)">‹</button>
+                    <div class="calendar-current-month" id="currentMonth">November 2025</div>
+                    <button class="calendar-nav-btn" onclick="changeMonth(1)">›</button>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+
+                <div class="calendar-items-section" id="calendarItemsSection" style="display: none;">
+                    <div class="calendar-items-title" id="selectedDateTitle">Items for Nov 11, 2025</div>
+                    <div class="calendar-items-list" id="calendarItemsList">
+                        <!-- Items will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMER SCREEN -->
+        <div class="screen timer-screen hidden-right" id="timerScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="timer-header">
+                <div class="timer-header-blob"></div>
+                <div class="bell-icon" onclick="showNotificationPage()">🔔</div>
+                <h2 class="timer-task-name" id="timerTaskName">Work Interview</h2>
+            </div>
+
+            <div class="timer-content">
+                <div class="timer-circle-container">
+                    <svg class="timer-progress" width="280" height="280">
+                        <circle class="timer-progress-circle" cx="140" cy="140" r="130"></circle>
+                        <circle class="timer-progress-bar" id="progressBar" cx="140" cy="140" r="130" 
+                                stroke-dasharray="817" stroke-dashoffset="0"></circle>
+                    </svg>
+                    
+                    <div class="timer-circle">
+                        <div class="timer-display" id="timerDisplay">15:00</div>
+                        <div class="timer-label">FOCUS</div>
+                        <button class="timer-control-btn" id="timerControlBtn" onclick="toggleTimer()">
+                            <span class="pause-icon" id="pauseIcon">⏸</span>
+                            <span class="play-icon" id="playIcon" style="display: none;">▶</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="timer-done-btn" onclick="completeTaskEarly()">Done</button>
+            </div>
+        </div>
+
+        <!-- TASK LIST SCREEN -->
+        <div class="screen task-list-screen hidden-right" id="taskListScreen">
+            <div class="status-bar">
+                <span>8:59PM</span>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                    <span>🔔</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <button class="back-arrow" onclick="backToWelcome()">←</button>
+                <div class="pink-blob"></div>
+                <div class="notification-icon" onclick="showNotificationPage()">🔔</div>
+                <div class="profile-placeholder">👤</div>
+                <div class="welcome-text">Welcome Kate Trajano</div>
+            </div>
+
+            <div class="task-list-content">
+                <div class="greeting-time">Good Afternoon</div>
+
+                <div class="my-tasks-section">
+                    <div class="my-tasks-header">
+                        <h2>My tasks</h2>
+                    </div>
+
+                    <div class="priority-filter">
+                        <button class="filter-btn active" id="filterAll" onclick="filterTasks('all')">
+                            All
+                        </button>
+                        <button class="filter-btn" id="filterHigh" onclick="filterTasks('high')">
+                            High
+                        </button>
+                        <button class="filter-btn" id="filterMedium" onclick="filterTasks('medium')">
+                            Medium
+                        </button>
+                        <button class="filter-btn" id="filterLow" onclick="filterTasks('low')">
+                            Low
+                        </button>
+                    </div>
+
+                    <div id="tasksList" class="tasks-container">
+                        <div class="empty-tasks">
+                            <div class="empty-tasks-icon">📋</div>
+                            <div>No tasks yet.<br>Click the + button to add your first task!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="fab-add-task" onclick="handleAddFromList()">+</button>
+        </div>
+
+        <!-- DELETE CONFIRMATION MODAL -->
+        <div class="modal-overlay" id="deleteModal">
+            <div class="delete-modal">
+                <h3>Are you sure you want to delete this task?</h3>
+                <div class="modal-buttons">
+                    <button class="modal-btn btn-yes" onclick="confirmDelete()">Yes</button>
+                    <button class="modal-btn btn-no" onclick="cancelDelete()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showNotesList() {
+            document.getElementById('notesListScreen').classList.remove('hidden-right');
+            document.getElementById('welcomeScreen').classList.add('hidden-right');
+        }
+        function showTaskList() {
+            document.getElementById('taskListScreen').classList.remove('hidden-right');
+            document.getElementById('welcomeScreen').classList.add('hidden-right');
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

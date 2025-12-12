@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": "1764830312788",
+      "name": "roido",
+      "email": "roido@gmail.com",
+      "password": "headzhacke12",
+      "tasks": [
+        {
+          "title": "asd",
+          "description": "asd",
+          "date": "2025-12-04",
+          "priority": "medium",
+          "completed": true,
+          "id": "1764830677147"
+        }
+      ],
+      "notes": [
+        {
+          "title": "hello",
+          "description": "world",
+          "mood": "angry",
+          "date": "2025-12-04T14:47:34",
+          "id": "1764830329099"
+        }
+      ]
+    }
+  ]
+}
